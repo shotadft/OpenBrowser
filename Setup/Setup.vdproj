@@ -1634,7 +1634,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.7.2"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.8.1"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=863262"
                 }
@@ -5618,7 +5618,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:OpenBrowser"
         "ProductCode" = "8:{753AC11F-4241-4DB0-B553-F13ACCE9C949}"
-        "PackageCode" = "8:{A49514A2-C819-41F0-BA7A-942AECEEC6BB}"
+        "PackageCode" = "8:{FC49DEA3-876F-43B1-9E64-4B37F7BB7ACE}"
         "UpgradeCode" = "8:{75C7A069-82EF-4F55-8A35-42F8FE56949A}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -5744,12 +5744,12 @@
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
+            "IconIndex" = "3:32512"
             "Transitive" = "11:FALSE"
             "Target" = "8:_5E1DA9E7B910402B8578EA4C06075EF9"
             "Folder" = "8:_B0EA1895434E4E4A8AF4545F9CA370C7"
             "WorkingFolder" = "8:_770946B96C7E429EA426ABE40EE44CB8"
-            "Icon" = "8:"
+            "Icon" = "8:_5E1DA9E7B910402B8578EA4C06075EF9"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_5FABF803FEFE4E09AD41C45D3D92696B"
@@ -5758,12 +5758,12 @@
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
+            "IconIndex" = "3:32512"
             "Transitive" = "11:FALSE"
             "Target" = "8:_5E1DA9E7B910402B8578EA4C06075EF9"
             "Folder" = "8:_00E9B773BF7E489C8DA70D4814A5C554"
             "WorkingFolder" = "8:_770946B96C7E429EA426ABE40EE44CB8"
-            "Icon" = "8:"
+            "Icon" = "8:_5E1DA9E7B910402B8578EA4C06075EF9"
             "Feature" = "8:"
             }
         }
