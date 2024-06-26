@@ -62,7 +62,7 @@ namespace OpenBrowser
 			Uri home_uri = new Uri(ApplicationSettings.settings_home_uri.ToString().Trim());
 			MainForm.home_url = home_uri;
 
-			XmlWriter xmlwr = XmlWriter.Create(@"OpenBrowser.settings.xml");
+			XmlWriter xmlwr = XmlWriter.Create(@"OpenBrowser.settings.ini");
 
 			xmlwr.WriteStartElement("text");
 

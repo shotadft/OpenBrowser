@@ -152,9 +152,9 @@ namespace OpenBrowser
 			CheckWebView2Runtime();
 			InitializeAsync();
 
-			if (File.Exists(@"OpenBrowser.settings.xml"))
+			if (File.Exists(@"OpenBrowser.settings.ini"))
 			{
-				XDocument xdoc = XDocument.Load(@"OpenBrowser.settings.xml");
+				XDocument xdoc = XDocument.Load(@"OpenBrowser.settings.ini");
 
 				XElement text = xdoc.Element("text");
 
@@ -181,25 +181,7 @@ namespace OpenBrowser
 					}
 					catch (Exception ex)
 					{
-						DialogResult rs = MessageBox.Show("WebView2ランタイムが見つかりません。\n(" + ex.Message + ")\n\nMicrosoft Edge WebView2 Runtimeをインストールしても宜しいですか？", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-						if (rs == DialogResult.Yes)
-						{
-							string tmpPath = localAppFolder + @"Temp\" + Program.app_name;
-							string installerPath = tmpPath + "MicrosoftEdgeWebview2Setup.exe";
-							Directory.CreateDirectory(tmpPath);
-
-							WebClient wc = new WebClient();
-							wc.DownloadFile("https://go.microsoft.com/fwlink/p/?LinkId=2124703", installerPath);
-							wc.Dispose();
-
-							Process proc = new Process();
-							proc.StartInfo.FileName = installerPath;
-							proc.StartInfo.Arguments = @"/install";
-							proc.Start();
-							proc.WaitForExit();
-							Directory.Delete(tmpPath, true);
-							Application.Restart();
-						}
+						DialogResult rs = MessageBox.Show("WebView2ランタイムが見つかりません。\n以下リンクからインストールしてください。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Question);
 					}
 					this.Close();
 				}
