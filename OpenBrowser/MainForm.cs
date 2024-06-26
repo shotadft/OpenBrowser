@@ -181,7 +181,7 @@ namespace OpenBrowser
 					}
 					catch (Exception ex)
 					{
-						DialogResult rs = MessageBox.Show("WebView2ランタイムが見つかりません。\n以下リンクからインストールしてください。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Question);
+						DialogResult rs = MessageBox.Show("WebView2ランタイムが見つかりません。\n以下リンクからインストールしてください。\nエラー: "+ex.Message.ToString(), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Question);
 					}
 					this.Close();
 				}
