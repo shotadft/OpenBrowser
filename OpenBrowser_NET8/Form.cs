@@ -25,7 +25,7 @@ namespace OpenBrowser
 
             webView.AllowExternalDrop = true;
             webView.CreationProperties = null;
-            webView.DefaultBackgroundColor = System.Drawing.Color.White;
+            webView.DefaultBackgroundColor = Color.White;
             webView.Name = "webView";
             webView.Source = new Uri("https://www.google.com/", UriKind.Absolute);
             webView.Size = this.ClientSize;
