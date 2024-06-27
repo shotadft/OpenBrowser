@@ -15,7 +15,7 @@ namespace OpenBrowser
         {
             this.AutoScaleDimensions = new SizeF(6F, 12F);
             this.AutoScaleMode = AutoScaleMode.Font;
-            this.Name = "OptionForm";
+            this.Name = $"OptionForm - {Program.app_name} v{Program.version}";
             this.Text = "設定";
             this.StartPosition = FormStartPosition.CenterParent;
             this.Icon = Program.icon;
