@@ -6,7 +6,7 @@ namespace OpenBrowser
     {
         public const string app_name = "OpenBrowser";
         public const string version = "1.0.4";
-        public static Icon icon = new Icon(@"icon/icon.ico");
+        public static Icon icon = Properties.Resources.icon;
 
         /// <summary>
         ///  The main entry point for the application.
