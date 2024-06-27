@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenBrowser", "OpenBrowser\OpenBrowser.csproj", "{BA779396-FB40-4FB2-A61A-9A17BE60D51E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenBrowser_NET8", "OpenBrowser_NET8\OpenBrowser_NET8.csproj", "{7ACD29DB-42ED-4E64-9829-8F9BF79F9EA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{BA779396-FB40-4FB2-A61A-9A17BE60D51E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA779396-FB40-4FB2-A61A-9A17BE60D51E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA779396-FB40-4FB2-A61A-9A17BE60D51E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ACD29DB-42ED-4E64-9829-8F9BF79F9EA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ACD29DB-42ED-4E64-9829-8F9BF79F9EA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ACD29DB-42ED-4E64-9829-8F9BF79F9EA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ACD29DB-42ED-4E64-9829-8F9BF79F9EA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
