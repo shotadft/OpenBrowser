@@ -152,8 +152,12 @@ namespace OpenBrowser
                             System.Collections.IEnumerable home_xml = text.Elements("homepage");
                             foreach (XElement xmle in home_xml)
                             {
-                                 Uri hmURL_xml = new Uri(xmle.Element("url").Value);
-                                 hmURL = hmURL_xml;
+                                XElement? urlElement = xmle.Element("url");
+                                if (urlElement != null)
+                                {
+                                    Uri hmURL_xml = new Uri(urlElement.Value);
+                                    hmURL = hmURL_xml;
+                                }
                             }
                         }
                     }
