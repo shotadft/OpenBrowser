@@ -1,0 +1,9 @@
+﻿<Application x:Class="OpenBrowser.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:OpenBrowser"
+             StartupUri="Windows/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary Source="/OpenBrowser.Windows.Controls;component/Themes/Generic.xaml"></ResourceDictionary>
+    </Application.Resources>
+</Application>

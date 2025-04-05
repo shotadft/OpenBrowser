@@ -1,0 +1,98 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:OpenBrowser.Windows.Controls">
+    <Style TargetType="{x:Type TabItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Grid SnapsToDevicePixels="true">
+                        <Border x:Name="mainBorder" 
+                                    BorderThickness="1,1,1,0" 
+                                    Background="{TemplateBinding Background}" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    CornerRadius="0,10,0,0" 
+                                    Margin="0">
+                            <Border x:Name="innerBorder" 
+                                        Background="#FFFFFF" 
+                                        BorderThickness="1,1,1,0" 
+                                        BorderBrush="#ACACAC" 
+                                        CornerRadius="0,10,0,0" 
+                                        Margin="-1" 
+                                        Opacity="0"/>
+                        </Border>
+                        <StackPanel Orientation="Horizontal">
+                            <ContentPresenter x:Name="contentPresenter" 
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"
+                                              ContentSource="Header" 
+                                              Margin="10,0" />
+                            <Button x:Name="CloseButton" Content="&#x00D7;" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" Width="20" Height="20" VerticalAlignment="Center" Margin="5,0,0,0"
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:CustomTabControl}}, Path=CloseTabCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Ellipse x:Name="hoverCircle" Width="15" Height="15" Fill="LightGray" Visibility="Collapsed"/>
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="hoverCircle" Property="Visibility" Value="Visible"/>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="False">
+                                                <Setter TargetName="hoverCircle" Property="Visibility" Value="Collapsed"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Margin" Value="-2,-2,-2,0"/>
+                            <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
+                            <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
+                            <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="{x:Type local:CustomTabControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:CustomTabControl}">
+                    <DockPanel LastChildFill="True">
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                            <TabPanel x:Name="HeaderPanel" Panel.ZIndex="1" IsItemsHost="True" VerticalAlignment="Center"/>
+                            <Button x:Name="AddTabButton" Content="+" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" Width="20" Height="20"
+                                    VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="New Tab">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Ellipse x:Name="hoverCircle" Width="15" Height="15" Fill="LightGray" Visibility="Collapsed"/>
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="hoverCircle" Property="Visibility" Value="Visible"/>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="False">
+                                                <Setter TargetName="hoverCircle" Property="Visibility" Value="Collapsed"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                        <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="2"/>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

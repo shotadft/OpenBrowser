@@ -1,0 +1,13 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OpenBrowser"
+        xmlns:Controls="clr-namespace:OpenBrowser.Windows.Controls;assembly=OpenBrowser.Windows.Controls" x:Class="OpenBrowser.MainWindow"
+        mc:Ignorable="d"
+        Title="OpenBrowser" Height="450" Width="800">
+    <Grid>
+        <Controls:CustomTabControl/>
+    </Grid>
+</Window>
