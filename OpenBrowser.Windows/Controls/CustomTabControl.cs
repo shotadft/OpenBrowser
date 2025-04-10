@@ -16,7 +16,6 @@ namespace OpenBrowser.Windows.Controls
         {
             this.Loaded += OnLoaded;
             this.SizeChanged += new((sender, e) => UpdateTabWidths());
-            this.AllowDrop = true;
         }
 
         public override void OnApplyTemplate()
@@ -26,11 +25,9 @@ namespace OpenBrowser.Windows.Controls
 
         private async void OnLoaded(object? sender, RoutedEventArgs e)
         {
-            if (!DesignerProperties.GetIsInDesignMode(this) && this.Items.Count == 0)
-            {
-                await AddTabAsync();
-                UpdateTabWidths();
-            }
+            if (!DesignerProperties.GetIsInDesignMode(this) && this.Items.Count == 0) await AddTabAsync();
+
+            UpdateTabWidths();
         }
 
         /// <summary>

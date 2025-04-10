@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OpenBrowser.Windows.Dialog"
         mc:Ignorable="d"
-        Title="" Height="275" Width="300" Topmost="True" ShowInTaskbar="False" ResizeMode="NoResize" WindowStyle="ToolWindow" Loaded="LoginDialog_Loaded" Closed="LoginDialog_Closed">
+        Title="" Height="275" Width="300" Topmost="True" ShowInTaskbar="False" ResizeMode="NoResize" WindowStyle="ToolWindow" Loaded="LoginDialog_Loaded" Closed="LoginDialog_Closed" WindowStartupLocation="CenterOwner">
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="ユーザー認証" FontSize="20" FontFamily="Segoe UI" FontWeight="Bold" Margin="5" HorizontalAlignment="Center"/>

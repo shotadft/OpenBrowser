@@ -56,7 +56,7 @@
                                 </Button.Content>
                             </Button>
                             <StackPanel x:Name="headerContent" Orientation="Horizontal">
-                                <Image x:Name="tabIcon" Source="/OpenBrowser.Windows.CustomControls;component/img/newtab.png"
+                                <Image x:Name="tabIcon" Source="/img/gray.ico"
                                        Width="16" Height="16"
                                        HorizontalAlignment="Left"
                                        Stretch="Uniform"
@@ -88,14 +88,14 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:CustomTabControl}">
-                    <Border Background="{TemplateBinding Background}"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
                             <DockPanel LastChildFill="True">
                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                     <TabPanel IsItemsHost="True" Panel.ZIndex="1" Background="{TemplateBinding Background}"/>
@@ -107,9 +107,9 @@
                                     </Button>
                                 </StackPanel>
                             </DockPanel>
-                            <ContentPresenter Grid.Row="1" ContentSource="SelectedContent"/>
-                        </Grid>
-                    </Border>
+                        </Border>
+                        <ContentPresenter Grid.Row="1" ContentSource="SelectedContent"/>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

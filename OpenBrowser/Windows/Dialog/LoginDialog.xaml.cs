@@ -13,12 +13,12 @@ namespace OpenBrowser.Windows.Dialog
 
         public LoginDialog() => InitializeComponent();
 
-        private void LoginDialog_Loaded(object sender, RoutedEventArgs e)
+        private void LoginDialog_Loaded(object? sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(usernameTextBox.Text)) usernameTextBox.Focus();
         }
 
-        private void LoginDialog_Closed(object sender, EventArgs e)
+        private void LoginDialog_Closed(object? sender, EventArgs e)
         {
             this.Loaded -= LoginDialog_Loaded;
             loginButton.Click -= LoginButton_Click;
