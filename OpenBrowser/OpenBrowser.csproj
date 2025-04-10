@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>img\OpenBrowser.ico</ApplicationIcon>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="img\icon\arrow\left_arrow.png" />
+    <Resource Include="img\icon\arrow\right_arrow.png" />
+    <Resource Include="img\icon\giar_icon.png" />
+    <Resource Include="img\icon\home_icon.png" />
+    <Resource Include="img\icon\arrow\update_arrow.png" />
+    <Content Include="img\gray.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="img\OpenBrowser.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Costura.Fody" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenBrowser.Windows\OpenBrowser.Windows.csproj" />
+  </ItemGroup>
+
+</Project>
