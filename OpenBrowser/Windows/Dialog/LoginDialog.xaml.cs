@@ -27,6 +27,7 @@ namespace OpenBrowser.Windows.Dialog
 
         private async void LoginButton_Click(object? sender, RoutedEventArgs e)
         {
+            string original = descriptionLabel.Text;
             bool isUsernameEmpty = string.IsNullOrWhiteSpace(usernameTextBox.Text);
             bool isPasswordEmpty = string.IsNullOrWhiteSpace(passwordBox.Password);
 
@@ -34,7 +35,7 @@ namespace OpenBrowser.Windows.Dialog
             {
                 ShowErrorMessage(isUsernameEmpty, isPasswordEmpty);
                 await Task.Delay(2000);
-                ResetErrorMessage();
+                ResetErrorMessage(original);
             }
             else
             {
@@ -63,9 +64,9 @@ namespace OpenBrowser.Windows.Dialog
             descriptionLabel.Foreground = Brushes.Red;
         }
 
-        private void ResetErrorMessage()
+        private void ResetErrorMessage(string original)
         {
-            descriptionLabel.Text = "ログイン情報を入力してください";
+            descriptionLabel.Text = original;
             descriptionLabel.Foreground = Brushes.Black;
         }
 

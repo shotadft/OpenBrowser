@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
+using OpenBrowser.Security.Filer;
+using OpenBrowser.Security.Filer.Cache;
 using OpenBrowser.Windows.Dialog;
 
 namespace OpenBrowser.Windows
@@ -39,13 +42,16 @@ namespace OpenBrowser.Windows
 
         }
 
-        private void SettingButton_Click(object? sender, RoutedEventArgs e)
+        private async void SettingButton_Click(object? sender, RoutedEventArgs e)
         {
             LoginDialog loginDialog = new() { Owner = this };
             if (loginDialog.ShowDialog() == true)
             {
                 string username = loginDialog.Username;
                 string password = loginDialog.Password;
+
+                BasicCertificateCache cacheFileManager = new();
+                await cacheFileManager.SaveCertCacheAsync("https://example.com", username, password);
                 MessageBox.Show($"Username: {username}{Environment.NewLine}Password: {password}", "Login Successful", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }

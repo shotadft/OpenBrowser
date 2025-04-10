@@ -1,10 +1,10 @@
 ﻿using System.IO;
 
-namespace OpenBrowser.Security.Filer
+namespace OpenBrowser.Security.Filer.Cache
 {
     public class CacheFileManager
     {
-        private static readonly string cacheDir = Path.Combine(Path.GetTempPath(), "OpenBrowser", "cache");
+        public static readonly string cacheDir = Path.Combine(Path.GetTempPath(), "OpenBrowser", "cache");
 
         public CacheFileManager()
         {
