@@ -95,7 +95,7 @@
                         </Grid.RowDefinitions>
                         <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                            BorderThickness="0,0,0,1">
                             <DockPanel LastChildFill="True">
                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                                     <TabPanel IsItemsHost="True" Panel.ZIndex="1" Background="{TemplateBinding Background}"/>
