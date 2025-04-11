@@ -130,48 +130,43 @@ namespace OpenBrowser.Security.Filer.Cache
 
             try
             {
-                using (var memoryStream = new MemoryStream(fileData))
-                using (var reader = new BinaryReader(memoryStream))
+                using MemoryStream memoryStream = new(fileData);
+                using BinaryReader reader = new(memoryStream);
+
+                string fileHeader = Encoding.UTF8.GetString(reader.ReadBytes(headerSize)).Trim('\0');
+                if (fileHeader != Encoding.UTF8.GetString(header))
+                    throw new InvalidDataException("Invalid file header.");
+
+                byte[] fileHmac = reader.ReadBytes(secSize);
+                byte[] data = reader.ReadBytes((int)(memoryStream.Length - (headerSize + (secSize * 2))));
+                byte[] fileChecksum = reader.ReadBytes(secSize);
+
+                byte[] hmacKey = Encoding.ASCII.GetBytes("HMAC_SECRET_KEY");
+                using var hmac = new HMACSHA256(hmacKey);
+                byte[] calculatedHmac = hmac.ComputeHash(data);
+                if (!calculatedHmac.SequenceEqual(fileHmac))
+                    throw new InvalidDataException("HMAC validation failed.");
+
+                int checksumSource = data.Length + versionNum;
+                byte[] calculatedChecksum = BitConverter.GetBytes(checksumSource);
+                using var sha256 = SHA256.Create();
+                calculatedChecksum = sha256.ComputeHash(calculatedChecksum);
+                if (!calculatedChecksum.SequenceEqual(fileChecksum))
+                    throw new InvalidDataException("Checksum validation failed.");
+
+                byte[] decompressedData = await DataCompressioner.Decompress(data);
+                byte[] decryptedData = await dataEncrypter.Decrypt(decompressedData);
+
+                string jsonData = Encoding.UTF8.GetString(decryptedData);
+                string? json = await LoadAuthDataJson(dataEncrypter, jsonData);
+
+                if (json != null)
                 {
-
-                    string fileHeader = Encoding.UTF8.GetString(reader.ReadBytes(headerSize)).Trim('\0') ?? string.Empty;
-                    if (fileHeader != Encoding.UTF8.GetString(header))
-                        throw new InvalidDataException("Invalid file header.");
-
-                    byte[] fileHmac = reader.ReadBytes(secSize);
-                    byte[] data = reader.ReadBytes((int)(memoryStream.Length - (headerSize + (secSize * 2))));
-                    byte[] fileChecksum = reader.ReadBytes(secSize);
-
-                    byte[] hmacKey = Encoding.ASCII.GetBytes("HMAC_SECRET_KEY");
-                    using var hmac = new HMACSHA256(hmacKey);
-                    byte[] calculatedHmac = hmac.ComputeHash(data);
-                    if (!calculatedHmac.SequenceEqual(fileHmac))
-                        throw new InvalidDataException("HMAC validation failed.");
-
-                    int checksumSource = data.Length + versionNum;
-                    byte[] calculatedChecksum = BitConverter.GetBytes(checksumSource);
-                    using var sha256 = SHA256.Create();
-                    calculatedChecksum = sha256.ComputeHash(calculatedChecksum);
-                    if (!calculatedChecksum.SequenceEqual(fileChecksum))
-                        throw new InvalidDataException("Checksum validation failed.");
-
-                    byte[] decompressedData = await DataCompressioner.Decompress(data);
-                    byte[] decryptedData = await dataEncrypter.Decrypt(decompressedData);
-
-                    string jsonData = Encoding.UTF8.GetString(decryptedData);
-                    string? json = await LoadAuthDataJson(dataEncrypter, jsonData);
-
-                    if (json != null)
-                    {
-                        string[] parts = json.Split(['\n'], StringSplitOptions.RemoveEmptyEntries);
-                        if (parts[0] == uri)
-                            return $"{parts[1]}:{parts[2]}";
-                        else
-                            return null;
-                    }
-                    else
-                        return null;
+                    string[] parts = json.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    return parts[0] == uri ? $"{parts[1]}:{parts[2]}" : null;
                 }
+
+                return null;
             }
             catch (OperationCanceledException ex)
             {
@@ -185,7 +180,6 @@ namespace OpenBrowser.Security.Filer.Cache
             }
         }
 
-
         private async static Task<string?> LoadAuthDataJson(DataEncrypter dataEncrypter, string jsonData)
         {
             using var jsonDocument = JsonDocument.Parse(jsonData);
@@ -198,18 +192,19 @@ namespace OpenBrowser.Security.Filer.Cache
             if (encodedName != null && encodedPassword != null)
             {
                 byte[] decodedName = Convert.FromBase64String(encodedName);
-                byte[] decryptedName = await dataEncrypter.Decrypt(decodedName);
-                byte[] decompressedName = await DataCompressioner.Decompress(decryptedName);
+                byte[] decompressedName = await DataCompressioner.Decompress(decodedName);
+                string decryptedName = Encoding.UTF8.GetString(await dataEncrypter.Decrypt(decompressedName));
 
                 byte[] decodedPassword = Convert.FromBase64String(encodedPassword);
-                byte[] decryptedPassword = await dataEncrypter.Decrypt(decodedPassword);
-                byte[] decompressedPassword = await DataCompressioner.Decompress(decryptedPassword);
+                byte[] decompressedPassword = await DataCompressioner.Decompress(decodedPassword);
+                string decryptedPassword = Encoding.UTF8.GetString(await dataEncrypter.Decrypt(decompressedPassword));
 
-                return $"{hostUrl}\n{Encoding.UTF8.GetString(decompressedName)}\n{Encoding.UTF8.GetString(decompressedPassword)}";
+                return $"{hostUrl}\n{decryptedName}\n{decryptedPassword}";
             }
 
             return null;
         }
+
 
         private static byte[] PadToLength(byte[] data, int length)
         {
