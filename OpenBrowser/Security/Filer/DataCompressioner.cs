@@ -5,28 +5,25 @@ namespace OpenBrowser.Security.Filer
 {
     public class DataCompressioner
     {
-        public async static Task<byte[]> Compress(byte[] data)
+        public static async Task<byte[]> Compress(byte[] data)
         {
-            using (var compressedStream = new MemoryStream())
+            using var memoryStream = new MemoryStream();
+            using (var gzipStream = new GZipStream(memoryStream, CompressionMode.Compress))
             {
-                using (var gzipStream = new GZipStream(compressedStream, CompressionMode.Compress))
-                {
-                    await gzipStream.WriteAsync(data, 0, data.Length);
-                }
-                return compressedStream.ToArray();
+                await gzipStream.WriteAsync(data, 0, data.Length);
             }
+            return memoryStream.ToArray();
         }
 
-        public async static Task<byte[]> Decompress(byte[] compressedData)
+        public static async Task<byte[]> Decompress(byte[] compressedData)
         {
-            using (var decompressedStream = new MemoryStream())
+            using var inputStream = new MemoryStream(compressedData);
+            using var outputStream = new MemoryStream();
+            using (var gzipStream = new GZipStream(inputStream, CompressionMode.Decompress))
             {
-                using (var gzipStream = new GZipStream(new MemoryStream(compressedData), CompressionMode.Decompress))
-                {
-                    await gzipStream.CopyToAsync(decompressedStream);
-                }
-                return decompressedStream.ToArray();
+                await gzipStream.CopyToAsync(outputStream);
             }
+            return outputStream.ToArray();
         }
     }
 }

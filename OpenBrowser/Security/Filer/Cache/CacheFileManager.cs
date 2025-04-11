@@ -2,74 +2,34 @@
 
 namespace OpenBrowser.Security.Filer.Cache
 {
-    public class CacheFileManager
+    public class CacheFileManager : FileManager
     {
-        public static readonly string cacheDir = Path.Combine(Path.GetTempPath(), "OpenBrowser", "cache");
+        public static readonly string cacheDir = Path.Combine(Path.GetTempPath(), App.appName, "cache");
+        private static readonly object lockObj = new();
 
         public CacheFileManager()
         {
-            if (!Directory.Exists(cacheDir))
+            lock (lockObj)
             {
-                Directory.CreateDirectory(cacheDir);
-            }
-        }
-
-        /// <summary>
-        /// キャッシュファイルを非同期で保存します。
-        /// </summary>
-        /// <param name="fileName">保存するファイル名</param>
-        /// <param name="content">ファイルの内容</param>
-        public async Task SaveCacheFileAsync(string fileName, byte[] data)
-        {
-            string filePath = Path.Combine(cacheDir, fileName);
-
-            try
-            {
-                await File.WriteAllBytesAsync(filePath, data);
-            }
-            catch (Exception ex)
-            {
-                throw new IOException($"Failed to save cache file: {fileName}", ex);
-            }
-        }
-
-        /// <summary>
-        /// キャッシュファイルを非同期で取得します。
-        /// </summary>
-        /// <param name="fileName">取得するファイル名</param>
-        /// <returns>ファイルの内容</returns>
-        public async Task<byte[]?> LoadCacheFileAsync(string fileName)
-        {
-            string filePath = Path.Combine(cacheDir, fileName);
-
-            try
-            {
-                if (File.Exists(filePath))
+                if (!Directory.Exists(cacheDir))
                 {
-                    return await File.ReadAllBytesAsync(filePath);
+                    Directory.CreateDirectory(cacheDir);
                 }
             }
-            catch (Exception ex)
-            {
-                throw new IOException($"Failed to read cache file: {fileName}", ex);
-            }
-
-            return null;
         }
 
-        /// <summary>
-        /// キャッシュファイルを非同期で削除します。
-        /// </summary>
-        /// <param name="fileName">削除するファイル名</param>
         public void DeleteCacheFile(string fileName)
         {
             string filePath = Path.Combine(cacheDir, fileName);
 
             try
             {
-                if (File.Exists(filePath))
+                lock (lockObj)
                 {
-                    File.Delete(filePath);
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
                 }
             }
             catch (Exception ex)
@@ -78,16 +38,19 @@ namespace OpenBrowser.Security.Filer.Cache
             }
         }
 
-        /// <summary>
-        /// キャッシュディレクトリ内のすべてのファイルを削除します。
-        /// </summary>
         public static void ClearCache()
         {
             try
             {
-                if (Directory.Exists(cacheDir))
+                lock (lockObj)
                 {
-                    Directory.EnumerateFiles(cacheDir, "*.tmp").ToList().ForEach(File.Delete);
+                    if (Directory.Exists(cacheDir))
+                    {
+                        foreach (var file in Directory.EnumerateFiles(cacheDir, "*.tmp"))
+                        {
+                            File.Delete(file);
+                        }
+                    }
                 }
             }
             catch (Exception ex)

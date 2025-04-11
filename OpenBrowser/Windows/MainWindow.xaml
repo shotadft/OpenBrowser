@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:OpenBrowser.Windows"
         xmlns:Controls="clr-namespace:OpenBrowser.Windows.Controls;assembly=OpenBrowser.Windows"
         mc:Ignorable="d"
-        Title="OpenBrowser" Height="504" Width="896" Closed="MainWindow_Closed" WindowStartupLocation="CenterScreen">
+        Title="OpenBrowser" Height="504" Width="896" Closed="MainWindow_Closed" WindowStartupLocation="CenterScreen" Loaded="MainWindow_Loaded">
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
             <Setter Property="MinHeight" Value="200"/>
