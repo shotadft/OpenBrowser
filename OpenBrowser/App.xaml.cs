@@ -4,11 +4,11 @@ using System.Windows;
 namespace OpenBrowser
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// App.xaml の相互作用ロジック
     /// </summary>
     public partial class App : Application
     {
-        public static string? AppName { get; } = Assembly.GetExecutingAssembly().GetName().Name;
-        public static string? AppVersion { get; } = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+        public static readonly string? AppName = Assembly.GetExecutingAssembly().GetName().Name;
+        public static readonly string? AppVersion = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
     }
 }

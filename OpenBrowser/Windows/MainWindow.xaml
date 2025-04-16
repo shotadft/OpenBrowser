@@ -5,12 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OpenBrowser"
         xmlns:vm="clr-namespace:OpenBrowser.Windows.ViewModel"
+        xmlns:Controls="clr-namespace:OpenBrowser.Windows.Controls;assembly=OpenBrowser.Windows"
         mc:Ignorable="d"
-        Title="{Binding AppName}" Height="450" Width="800">
+        Title="{Binding AppName}" Height="504" Width="896">
+    <Window.Resources>
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="MinHeight" Value="200"/>
+            <Setter Property="MinWidth" Value="500"/>
+        </Style>
+    </Window.Resources>
+
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
-    <Grid>
 
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <Grid DockPanel.Dock="Top" VerticalAlignment="Top" Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="undoButton" Grid.Column="0" Style="{StaticResource UIButton}">
+                    <Image Source="/img/icon/arrow/left_arrow.png" Stretch="UniformToFill"/>
+                </Button>
+                <Button x:Name="forwardButton" Grid.Column="1" Style="{StaticResource UIButton}">
+                    <Image Source="/img/icon/arrow/right_arrow.png" Stretch="UniformToFill"/>
+                </Button>
+                <Button x:Name="updateButton" Grid.Column="2" Style="{StaticResource UIButton}">
+                    <Image Source="/img/icon/arrow/update_arrow.png" Stretch="UniformToFill"/>
+                </Button>
+                <Button x:Name="homeButoon" Grid.Column="3" Style="{StaticResource UIButton}">
+                    <Image Source="/img/icon/home_icon.png" Stretch="UniformToFill"/>
+                </Button>
+                <TextBox x:Name="addressBar" Grid.Column="4" Height="20" Margin="2,0"/>
+                <Button x:Name="settingButton" Grid.Column="5" Style="{StaticResource UIButton}">
+                    <Image Source="/img/icon/giar_icon.png" Stretch="UniformToFill"/>
+                </Button>
+            </Grid>
+            <Controls:CustomTabControl x:Name="tabControl"/>
+        </DockPanel>
     </Grid>
 </Window>
