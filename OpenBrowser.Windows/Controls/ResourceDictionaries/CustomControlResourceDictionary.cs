@@ -1,10 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace OpenBrowser.Windows.Controls
+namespace OpenBrowser.Windows.Controls.ResourceDictionaries
 {
     public partial class CustomControlResourceDictionary : ResourceDictionary
     {
+        public CustomControlResourceDictionary() => InitializeComponent();
+
         private async void AddTabButton_Click(object? sender, RoutedEventArgs e)
         {
             try

@@ -1,11 +1,14 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace OpenBrowser.Windows.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        public ICommand? ButtonClickCommand { get; }
 
         private string _AppName = App.AppName ?? string.Empty;
         public string AppName
@@ -18,9 +21,23 @@ namespace OpenBrowser.Windows.ViewModel
             }
         }
 
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = "")
+        private string _message = "";
+        public string Message
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get => _message;
+            set
+            {
+                _message = value;
+                RaisePropertyChanged();
+            }
         }
+
+        private void OnButtonClick()
+        {
+            Message = "ボタンがクリックされました！";
+        }
+
+        protected void RaisePropertyChanged([CallerMemberName] string? propertyName = null) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

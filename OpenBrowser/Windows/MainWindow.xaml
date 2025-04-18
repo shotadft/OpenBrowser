@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:OpenBrowser.Windows.ViewModel"
         xmlns:Controls="clr-namespace:OpenBrowser.Windows.Controls;assembly=OpenBrowser.Windows"
         mc:Ignorable="d"
-        Title="{Binding AppName}" Height="504" Width="896">
+        Title="{Binding AppName}" Height="504" Width="896" Closed="mainWindow_Closed">
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
             <Setter Property="MinHeight" Value="200"/>
@@ -43,7 +43,7 @@
                 <Button x:Name="homeButoon" Grid.Column="3" Style="{StaticResource UIButton}">
                     <Image Source="/img/icon/home_icon.png" Stretch="UniformToFill"/>
                 </Button>
-                <TextBox x:Name="addressBar" Grid.Column="4" Height="20" Margin="2,0"/>
+                <TextBox x:Name="addressBar" Text="{Binding Message}" Grid.Column="4" Height="20" Margin="2,0"/>
                 <Button x:Name="settingButton" Grid.Column="5" Style="{StaticResource UIButton}">
                     <Image Source="/img/icon/giar_icon.png" Stretch="UniformToFill"/>
                 </Button>

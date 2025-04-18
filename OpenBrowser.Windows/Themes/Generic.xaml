@@ -2,7 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:OpenBrowser.Windows.Controls"
-    x:Class="OpenBrowser.Windows.Controls.CustomControlResourceDictionary">
+    x:Class="OpenBrowser.Windows.Controls.ResourceDictionaries.CustomControlResourceDictionary">
     <Style x:Key="TabButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Width" Value="20"/>
         <Setter Property="Height" Value="20"/>
