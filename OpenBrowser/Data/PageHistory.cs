@@ -2,25 +2,25 @@
 {
     public class PageHistory
     {
-        public Dictionary<int, Uri?> CurrentUrl { get; set; } = new();
-        public Dictionary<int, Stack<Uri>> UndoList { get; set; } = new();
-        public Dictionary<int, Stack<Uri>> RedoList { get; set; } = new();
+        public Dictionary<int, Uri?> CurrentUrl { get; set; } = [];
+        public Dictionary<int, Stack<Uri>> UndoList { get; set; } = [];
+        public Dictionary<int, Stack<Uri>> RedoList { get; set; } = [];
 
-        public void Navigate(int pageId, Uri newUri)
+        public void Navigate(int tabIndex, Uri? newUri)
         {
-            if (!UndoList.ContainsKey(pageId))
+            if (!UndoList.ContainsKey(tabIndex))
             {
-                UndoList[pageId] = new Stack<Uri>();
-                RedoList[pageId] = new Stack<Uri>();
+                UndoList[tabIndex] = new Stack<Uri>();
+                RedoList[tabIndex] = new Stack<Uri>();
             }
 
-            if (CurrentUrl.ContainsKey(pageId) && CurrentUrl[pageId] != null)
+            if (CurrentUrl.ContainsKey(tabIndex) && CurrentUrl[tabIndex] != null)
             {
-                UndoList[pageId].Push(CurrentUrl[pageId]!);
+                UndoList[tabIndex].Push(CurrentUrl[tabIndex]!);
             }
 
-            CurrentUrl[pageId] = newUri;
-            RedoList[pageId].Clear();
+            CurrentUrl[tabIndex] = newUri;
+            RedoList[tabIndex].Clear();
         }
 
         public Uri? Undo(int tabIndex)

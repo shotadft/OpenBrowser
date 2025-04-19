@@ -7,7 +7,7 @@ namespace OpenBrowser.Windows.ViewModel
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private string _DialogDescription = $"{MainViewModel.history.CurrentUrl[MainViewModel.tabIndex]} にアクセスするにはログインしてください";
+        private string _DialogDescription = $"{MainViewModel.history.GetCurrent(MainViewModel.tabIndex)} にアクセスするにはログインしてください";
         public string DialogDescription
         {
             get => _DialogDescription;

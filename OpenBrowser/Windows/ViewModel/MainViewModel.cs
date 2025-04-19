@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using OpenBrowser.Data;
+using OpenBrowser.Net;
 
 namespace OpenBrowser.Windows.ViewModel
 {
@@ -20,8 +22,7 @@ namespace OpenBrowser.Windows.ViewModel
         public ICommand? UpdateButtonClickCommand { get; }
         public ICommand? HomeButtonClickCommand { get; }
         public ICommand? SettingButtonClickCommand { get; }
-
-        public ICommand? TabChangedEventCommand { get; }
+        public ICommand? AddressBarEnterKeyCommand { get; }
 
         public MainViewModel()
         {
@@ -30,6 +31,50 @@ namespace OpenBrowser.Windows.ViewModel
             UpdateButtonClickCommand = new RelayCommand(UpdateButtonClick);
             HomeButtonClickCommand = new RelayCommand(HomeButtonClick);
             SettingButtonClickCommand = new RelayCommand(SettingButtonClick);
+            AddressBarEnterKeyCommand = new RelayCommand(PlessADBEnterKey);
+        }
+
+        private string _AppName = App.AppName ?? string.Empty;
+        public string AppName
+        {
+            get => _AppName;
+            private set
+            {
+                if (_AppName != value)
+                {
+                    _AppName = value;
+                    OnPropertyChanged(nameof(AppName));
+                }
+            }
+        }
+
+        private int _selectedTabIndex = 0;
+        public int SelectedTabIndex
+        {
+            get => _selectedTabIndex;
+            set
+            {
+                if (_selectedTabIndex != value)
+                {
+                    _selectedTabIndex = value;
+                    tabIndex = _selectedTabIndex;
+                    OnPropertyChanged(nameof(SelectedTabIndex));
+                }
+            }
+        }
+
+        private string _addressBarText = string.Empty;
+        public string AddressBarText
+        {
+            get => _addressBarText;
+            set
+            {
+                if (_addressBarText != value)
+                {
+                    _addressBarText = value;
+                    OnPropertyChanged(nameof(AddressBarText));
+                }
+            }
         }
 
         private void UndoButtonClick()
@@ -54,34 +99,27 @@ namespace OpenBrowser.Windows.ViewModel
 
         private void SettingButtonClick()
         {
-            history.CurrentUrl[SelectedTabIndex] = new Uri("https://www.google.com");
-            OnRequestOpenWindow?.Invoke(this, EventArgs.Empty);
+            MessageBox.Show("Setting button clicked.");
         }
 
-        private string _AppName = App.AppName ?? string.Empty;
-        public string AppName
+        private async void PlessADBEnterKey()
         {
-            get => _AppName;
-            private set
-            {
-                _AppName = value;
-                OnPropertyChanged(nameof(AppName));
-            }
+            await NavigateTo();
         }
 
-        private int _selectedTabIndex = 0;
-        public int SelectedTabIndex
+        private async Task NavigateTo()
         {
-            get => _selectedTabIndex;
-            set
-            {
-                if (_selectedTabIndex != value)
-                {
-                    _selectedTabIndex = value;
-                    tabIndex = _selectedTabIndex;
-                    OnPropertyChanged(nameof(SelectedTabIndex));
-                }
-            }
+            string url = AddressBarText;
+            if (string.IsNullOrWhiteSpace(url)) return;
+
+            using WebClient client = new();
+            Uri? uri = NetHandler.ConvertURIString(url);
+
+            var (str, finalUri) = await NetHandler.GetStringAsync(uri, client);
+            AddressBarText = (history.CurrentUrl[tabIndex] = uri)?.ToString() ?? AddressBarText;
+            history.Navigate(tabIndex, history.GetCurrent(tabIndex));
+
+            await File.WriteAllTextAsync(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "index.html"), str);
         }
 
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null) =>

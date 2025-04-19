@@ -43,12 +43,16 @@
                 <Button x:Name="homeButoon" Grid.Column="3" Style="{StaticResource UIButton}" Command="{Binding HomeButtonClickCommand}">
                     <Image Source="/img/icon/home_icon.png" Stretch="UniformToFill"/>
                 </Button>
-                <TextBox x:Name="addressBar" Grid.Column="4" Height="20" Margin="2,0"/>
+                <TextBox x:Name="addressBar" Grid.Column="4" Height="20" Margin="2,0" Text="{Binding AddressBarText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding AddressBarEnterKeyCommand}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <Button x:Name="settingButton" Grid.Column="5" Style="{StaticResource UIButton}" Command="{Binding SettingButtonClickCommand}">
                     <Image Source="/img/icon/giar_icon.png" Stretch="UniformToFill"/>
                 </Button>
             </Grid>
-            <Controls:CustomTabControl x:Name="tabControl" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}"/>
+            <Controls:CustomTabControl x:Name="tabControl" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
     </Grid>
 </Window>
