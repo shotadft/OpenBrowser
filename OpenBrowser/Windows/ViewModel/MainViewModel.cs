@@ -112,10 +112,9 @@ namespace OpenBrowser.Windows.ViewModel
             string url = AddressBarText;
             if (string.IsNullOrWhiteSpace(url)) return;
 
-            using WebClient client = new();
             Uri? uri = NetHandler.ConvertURIString(url);
 
-            var (str, finalUri) = await NetHandler.GetStringAsync(uri, client);
+            var (str, finalUri) = await NetHandler.GetStringAsync(uri);
             AddressBarText = (history.CurrentUrl[tabIndex] = uri)?.ToString() ?? AddressBarText;
             history.Navigate(tabIndex, history.GetCurrent(tabIndex));
 

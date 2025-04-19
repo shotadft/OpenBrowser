@@ -6,6 +6,8 @@ namespace OpenBrowser.Net
 {
     public partial class NetHandler
     {
+        private static readonly WebClient client = new();
+
         [GeneratedRegex(@"^(\d+)\.(\d+)\.(\d+)\.(\d+)(\:(\d+))?$")]
         private static partial Regex IPAddressRegex();
 
@@ -111,7 +113,7 @@ namespace OpenBrowser.Net
 
         #endregion ConvertURIString
 
-        public static async Task<(string?, Uri)> GetStringAsync(Uri? uri, WebClient client)
+        public static async Task<(string?, Uri)> GetStringAsync(Uri? uri)
         {
             if (uri == null) throw new ArgumentNullException($"{nameof(uri)} is null.");
             if (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps && uri.Scheme != Uri.UriSchemeFtp && uri.Scheme != Uri.UriSchemeFtps)
