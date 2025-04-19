@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using OpenBrowser.Data;
 
 namespace OpenBrowser.Windows.ViewModel
 {
@@ -9,11 +10,18 @@ namespace OpenBrowser.Windows.ViewModel
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        public event EventHandler? OnRequestOpenWindow = null;
+
+        public static readonly PageHistory history = new();
+        public static int tabIndex = 0;
+
         public ICommand? UndoButtonClickCommand { get; }
         public ICommand? ForwardButtonClickCommand { get; }
         public ICommand? UpdateButtonClickCommand { get; }
         public ICommand? HomeButtonClickCommand { get; }
         public ICommand? SettingButtonClickCommand { get; }
+
+        public ICommand? TabChangedEventCommand { get; }
 
         public MainViewModel()
         {
@@ -46,9 +54,9 @@ namespace OpenBrowser.Windows.ViewModel
 
         private void SettingButtonClick()
         {
-            MessageBox.Show("Setting button clicked.");
+            history.CurrentUrl[SelectedTabIndex] = new Uri("https://www.google.com");
+            OnRequestOpenWindow?.Invoke(this, EventArgs.Empty);
         }
-
 
         private string _AppName = App.AppName ?? string.Empty;
         public string AppName
@@ -57,7 +65,22 @@ namespace OpenBrowser.Windows.ViewModel
             private set
             {
                 _AppName = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(AppName));
+            }
+        }
+
+        private int _selectedTabIndex = 0;
+        public int SelectedTabIndex
+        {
+            get => _selectedTabIndex;
+            set
+            {
+                if (_selectedTabIndex != value)
+                {
+                    _selectedTabIndex = value;
+                    tabIndex = _selectedTabIndex;
+                    OnPropertyChanged(nameof(SelectedTabIndex));
+                }
             }
         }
 

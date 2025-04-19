@@ -7,9 +7,6 @@ namespace OpenBrowser.Windows.Dialog
     /// </summary>
     public partial class LoginDialog : Window
     {
-        public LoginDialog()
-        {
-            InitializeComponent();
-        }
+        public LoginDialog() => InitializeComponent();
     }
 }

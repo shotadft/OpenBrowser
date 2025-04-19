@@ -4,17 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OpenBrowser.Windows.Dialog"
+        xmlns:vm="clr-namespace:OpenBrowser.Windows.ViewModel"
         mc:Ignorable="d"
-        Height="275" Width="300">
+        Height="280" Width="320" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+    <Window.DataContext>
+        <vm:LoginViewModel/>
+    </Window.DataContext>
+    
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="ユーザー認証" FontFamily="Noto Sans JP" FontSize="20" Margin="5,5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <TextBlock x:Name="description" Text="このページにアクセスするにはログインしてください"
+            <TextBlock Text="ユーザー認証" FontFamily="Noto Sans JP" FontSize="22" Margin="5,5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="description" Text="{Binding DialogDescription}" TextWrapping="Wrap"
                        FontFamily="Noto Sans JP" FontSize="10" Margin="5,5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            
             <TextBlock Text="ユーザー名" FontFamily="Noto Sans JP" FontSize="12" Margin="5,5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <TextBox x:Name="usernameBox" FontFamily="Noto Sans JP" FontSize="12" Margin="5,5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+            
             <TextBlock Text="パスワード" FontFamily="Noto Sans JP" FontSize="12" Margin="5,5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <PasswordBox x:Name="passwordBox" FontFamily="Noto Sans JP" FontSize="12" Margin="5,5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+            
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
                 <Button x:Name="loginButton" Content="ログイン" FontFamily="Noto Sans JP" FontSize="12" Margin="10,5" Height="25" Width="100" IsDefault="True"/>
                 <Button x:Name="cancelButton" Content="キャンセル" FontFamily="Noto Sans JP" FontSize="12" Margin="10,5" Height="25" Width="100" IsCancel="True"/>

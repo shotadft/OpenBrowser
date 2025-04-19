@@ -16,7 +16,7 @@
     </Window.Resources>
 
     <Window.DataContext>
-        <vm:MainViewModel/>
+        <vm:MainViewModel x:Name="viewModel"/>
     </Window.DataContext>
 
     <Grid>
@@ -31,10 +31,10 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="undoButton" Grid.Column="0" Style="{StaticResource UIButton}" Command="{Binding UndoButtonClickCommand}">
+                <Button x:Name="undoButton" Grid.Column="0" Style="{StaticResource UIButton}" IsEnabled="False" Command="{Binding UndoButtonClickCommand}">
                     <Image Source="/img/icon/arrow/left_arrow.png" Stretch="UniformToFill"/>
                 </Button>
-                <Button x:Name="forwardButton" Grid.Column="1" Style="{StaticResource UIButton}" Command="{Binding ForwardButtonClickCommand}">
+                <Button x:Name="forwardButton" Grid.Column="1" Style="{StaticResource UIButton}" IsEnabled="False" Command="{Binding ForwardButtonClickCommand}">
                     <Image Source="/img/icon/arrow/right_arrow.png" Stretch="UniformToFill"/>
                 </Button>
                 <Button x:Name="updateButton" Grid.Column="2" Style="{StaticResource UIButton}" Command="{Binding UpdateButtonClickCommand}">
@@ -48,7 +48,7 @@
                     <Image Source="/img/icon/giar_icon.png" Stretch="UniformToFill"/>
                 </Button>
             </Grid>
-            <Controls:CustomTabControl x:Name="tabControl"/>
+            <Controls:CustomTabControl x:Name="tabControl" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}"/>
         </DockPanel>
     </Grid>
 </Window>
